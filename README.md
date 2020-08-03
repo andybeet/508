@@ -18,7 +18,9 @@ Steps are provided to help create 508 compliant pdfs
 
 An example text file in markdown is provided (`example.md`). 
 
-An equivalent Rmarkdown file is provided (`example.rmd`). The difference is only the includion of a YAML header
+An equivalent Rmarkdown file is provided (`example.rmd`). The difference is only the includion of a YAML header.
+
+A second Rmarkdown file is provided (`example2.rmd`). Where a code chunk is used instead of markdown to include images plus a YAML header.
 
 The resulting pdf (`example.pdf`) is provided as the final product
 
