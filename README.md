@@ -1,6 +1,6 @@
 # 508
 
-![gitleaks](https://github.com/NOAA-EDAB/LeMANS/workflows/gitleaks/badge.svg)
+![gitleaks](https://github.com/andybeet/508/workflows/gitleaks/badge.svg)
 
 
 # Who is this document for?
