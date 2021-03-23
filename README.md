@@ -29,6 +29,15 @@ The resulting pdf (`example.pdf`) is provided as the final product
 
 A template word file (`reference.docx`) is provided to demonstrate examples of formatting.
 
+# Resources for 508 help
+
+1. [Alt text Best Practices](https://www.youtube.com/watch?v=_delzGjIFV4)
+1. SSA [Alt text guide](https://www.ssa.gov/accessibility/files/SSA_Alternative_Text_Guide.pdf)
+1. WebAIM [web accessibility](https://webaim.org/techniques/alttext/)
+1. NOAA Central library [quick start guide](https://libguides.library.noaa.gov/Section508/QuickStart)
+1. [508 Accessibility check](https://www.youtube.com/watch?v=7AbwL0GU3m8&list=PLpb5LINL0Ys9LWzCHuxLaiQpX7013d30T&index=9)
+1. NOAA IR [Guidelines](https://docs.google.com/document/d/1br7P9iRS91EJ78GPiw1L56kNMYtVNy_rkl44q0u_Mno/edit)
+
 ## Contact
 
 | [andybeet](https://github.com/andybeet)        
