@@ -1,0 +1,161 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\DocumentMetadata{
+ lang=en,
+ pdfversion=2.0,
+ pdfstandard=ua-2,
+ pdfstandard=a-4,
+ testphase=
+   {
+    phase-III, %lists,footnotes,sectioning,
+               %toc,marginpar,bibliography,floats,
+               %graphics ...
+    math,  
+    table, %tabular, tabularx, longtable
+    title  %maketitle
+   }
+ }
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Create an accessible pdf from rmarkdown with alt tags only},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Create an accessible pdf from rmarkdown with alt tags only}
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+\maketitle
+
+\begin{itemize}
+\tightlist
+\item
+  \hyperref[who-is-this-document-for]{Who is this document for?}
+\item
+  \hyperref[steps-in-process]{Step in process}
+\item
+  \hyperref[testing-figure-sizes]{Testing figure sizes}
+\end{itemize}
+
+\section{Who is this document for?}\label{who-is-this-document-for}
+
+This document is for people who prefer to use flavors of markdown for
+their document writing instead of Microsoft Word. When writing in
+markdown issues arise when converting to pdf. In particular alt text for
+images are not displayed or transferred resulting in pdfs failing to
+pass accessibility checks.
+
+\section{Steps in process}\label{steps-in-process}
+
+\begin{itemize}
+\tightlist
+\item
+  Knit the Rmd file
+\item
+  Edit the \texttt{tex} file created
+\item
+  Add the following code to the \texttt{tex} file right above the line
+  \texttt{\textbackslash{}documentclass\{article\}}
+\end{itemize}
+
+\begin{verbatim}
+\DocumentMetadata{
+ lang=en,
+ pdfversion=2.0,
+ pdfstandard=ua-2,
+ pdfstandard=a-4,
+ testphase=
+   {
+    phase-III, %lists,footnotes,sectioning,
+               %toc,marginpar,bibliography,floats,
+               %graphics ...
+    math,  
+    table, %tabular, tabularx, longtable
+    title  %maketitle
+   }
+ }
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Save and compile this \texttt{tex} file by clicking the ``Compile
+  PDF'' button in RStudio
+\item
+  open pdf and perform a \texttt{full\ check} (found in the
+  accessibility tab)
+\end{itemize}
+
+\section{Testing figure sizes}\label{testing-figure-sizes}
+
+All images were created with a resolution of 96 dpi.
+
+Each figure has different number of horizontal and vertical pixels.
+
+Mouse over the image to see its dimensions
+
+Note: the figure caption will be the name of the image file
+
+\includegraphics[width=600px]{figures/test6}
+
+\end{document}
