@@ -15,7 +15,7 @@ output:
 # Who is this document for?
 
 This document is for people who prefer to use flavors of markdown for their document writing instead of Microsoft Word.
-When writing in markdown issues arise when converting to pdf. In particular alt text for images are not displayed or transfered resulting in pdfs failing to pass accessibility checks. This document attempts to resolve this issue.
+When writing in markdown issues arise when converting to pdf. In particular alt text for images are not displayed or transferred resulting in pdfs failing to pass accessibility checks. This document attempts to resolve this issue.
 
 # Steps in process
 
