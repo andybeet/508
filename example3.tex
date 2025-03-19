@@ -87,6 +87,8 @@
 \begin{document}
 \maketitle
 
+\subsection{Table of contents}\label{table-of-contents}
+
 \begin{itemize}
 \tightlist
 \item
@@ -97,7 +99,7 @@
   \hyperref[testing-figure-sizes]{Testing figure sizes}
 \end{itemize}
 
-\section{Who is this document for?}\label{who-is-this-document-for}
+\subsection{Who is this document for?}\label{who-is-this-document-for}
 
 This document is for people who prefer to use flavors of markdown for
 their document writing instead of Microsoft Word. When writing in
@@ -105,7 +107,7 @@ markdown issues arise when converting to pdf. In particular alt text for
 images are not displayed or transferred resulting in pdfs failing to
 pass accessibility checks.
 
-\section{Steps in process}\label{steps-in-process}
+\subsection{Steps in process}\label{steps-in-process}
 
 \begin{itemize}
 \tightlist
@@ -146,7 +148,7 @@ pass accessibility checks.
   accessibility tab)
 \end{itemize}
 
-\section{Testing figure sizes}\label{testing-figure-sizes}
+\subsection{Testing figure sizes}\label{testing-figure-sizes}
 
 All images were created with a resolution of 96 dpi.
 
@@ -154,8 +156,16 @@ Each figure has different number of horizontal and vertical pixels.
 
 Mouse over the image to see its dimensions
 
-Note: the figure caption will be the name of the image file
+\textbf{Note: the figure caption will be the name of the image file
+path}
+
+\subsubsection{Include a file}\label{include-a-file}
 
 \includegraphics[width=600px]{figures/test6}
+
+\subsubsection{Create an image from a code
+chunk}\label{create-an-image-from-a-code-chunk}
+
+\includegraphics[width=600px]{example3_files/figure-latex/eocdata-gsi-1}
 
 \end{document}
