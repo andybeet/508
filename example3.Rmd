@@ -61,13 +61,20 @@ Mouse over the image to see its dimensions
 
 ### Include a file
 
-```{r test6, echo=FALSE, out.width="600px"}
+```{r test6, echo=FALSE, out.width="600px",fig.cap="Time series is a dummy example"}
 knitr::include_graphics("figures/test6.png")
 ```
 
-
 ### Create an image from a code chunk
 
-```{r eocdata-gsi, echo=FALSE,out.width="600px",fig.alt="dsfs"}
+```{r ecodata-gsi, echo=FALSE,out.width="600px",fig.cap="Time series describing the the Gulf Stream Index for the Northeast Shelf. The X-axis shows the time in years and the Y-axis shows the Gulf Stream position anomaly"}
 ecodata::plot_gsi()
 ```
+
+
+### Create an image from a code chunk with no width specified
+
+```{r ecodata-blue-runner, echo=FALSE,fig.cap="No width. "}
+ecodata::plot_blue_runner()
+```
+
