@@ -29,6 +29,11 @@ The resulting pdf (`example.pdf`) is provided as the final product
 
 A template word file (`reference.docx`) is provided to demonstrate examples of formatting.
 
+# 508 alt.txt without word
+
+Example `example3.rmd` demonstrates how to include alt text for images without using word as a template. This is done by keeping the intermediate tex file and modifying it (very slightly) before converting to a pdf. The resulting pdf passes accessibility checks albeit with not very descriptive alt text. This can be improved by including alt text in the rmd code chunk and running a script (`R/replace_tex_with_rmd()`) to modify the tex file further.
+
+
 # Resources for 508 help
 
 1. [Alt text Best Practices](https://www.youtube.com/watch?v=_delzGjIFV4)
