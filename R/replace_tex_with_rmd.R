@@ -1,9 +1,19 @@
-#' Read in rmd and replace info in tex
+#' Use alt text in rmd file to populate tex file
 #' 
+#' @description Read in rmd file and use the fig.cap/fig.alt text in the rmd file
+#' to populate the alt text in the tex file. This currently only works with 
+#' images created on the fly in a code chunk and not with images included 
+#' using knitr. 
+#' 
+#' There are still some characters that if present in the fig.cap/fig.alt text
+#' cause problems in the rendering of the tex file. The full list is not known
+#' 
+#' @params filename character name of the rmd file
+#' @params text character name of the text to replace in the tex file
 #' 
 
-replace_tex_with_rmd <- function(filename="SOE-MAFMC-2025") {
-
+replace_tex_with_rmd <- function(filename="example3",text="fig.cap") {
+  
   ## snippet of text to add to tex file
 addText <- "\\DocumentMetadata{
  lang=en,
@@ -25,7 +35,7 @@ addText <- "\\DocumentMetadata{
 con <- file(here::here(paste0(filename,".Rmd")), open = "r")
 rmd <- readLines(con)
 close(con)
-# find rchunk label and fig.alt/cap text for ecodata objects
+# find rchunk label and fig.alt/cap text for objects
 rchunkLines <- grepl("^```\\{r",rmd)
 rchunks <- rmd[rchunkLines]
 
@@ -34,13 +44,22 @@ rchunks <- rmd[rchunkLines]
 chunkNameString <- stringr::str_extract(rchunks,"```\\{r\\,*\\s+([a-z0-9A-Z-]+)")
 chunkNames <- gsub("```\\{r,*\\s+","",chunkNameString)
 # grab fig.cap/alt section of chunk header
-figAltString <- stringr::str_extract(rchunks,"fig.cap\\s*=\\s*.*") 
-figAltString <- stringr::str_extract(rchunks,"fig\\.cap\\s*=\\s*([\"\'])(?:(?=(\\\\?))\\2.)*?\\1") 
-figAlts <- gsub("fig\\.cap\\s*=\\s*[\\\"']","",figAltString)
+if (text == "fig.cap"){ 
+  figAltString <- stringr::str_extract(rchunks,"fig.cap\\s*=\\s*.*") 
+  figAltString <- stringr::str_extract(rchunks,"fig\\.cap\\s*=\\s*([\"\'])(?:(?=(\\\\?))\\2.)*?\\1") 
+  figAlts <- gsub("fig\\.cap\\s*=\\s*[\\\"']","",figAltString)
+} else if (text == "fig.alt") {
+  figAltString <- stringr::str_extract(rchunks,"fig.alt\\s*=\\s*.*") 
+  figAltString <- stringr::str_extract(rchunks,"fig\\.alt\\s*=\\s*([\"\'])(?:(?=(\\\\?))\\2.)*?\\1") 
+  figAlts <- gsub("fig\\.alt\\s*=\\s*[\\\"']","",figAltString)
+} else {
+  error("text must be fig.cap or fig.alt")
+}
 # substiture \" or ' for empty string
 figAlts <- gsub("\"","",figAlts)
 figAlts <- gsub("'","",figAlts)
-
+# in figAlts replace = sign with the word is
+figAlts <- gsub("="," is ",figAlts)
 figAltNames <- gsub("\"}","",figAlts)
 
 # replace all figAltNames with NA
@@ -90,7 +109,7 @@ for(i in 1:length(chunkNames)){
 
 
 # write newTex to file
-con <- file(here::here(paste0(filename,"b_test.tex")), open = "w")
+con <- file(here::here(paste0(filename,"_test.tex")), open = "w")
 writeLines(newTex, con)
 close(con)
 
