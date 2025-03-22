@@ -146,16 +146,24 @@ path}
 
 \subsubsection{Include a file}\label{include-a-file}
 
-\includegraphics[width=600px]{figures/test6}
+\begin{figure}
+\includegraphics[width=600px]{figures/test6} \caption{Time series is a dummy example}\label{fig:test6}
+\end{figure}
 
 \subsubsection{Create an image from a code
 chunk}\label{create-an-image-from-a-code-chunk}
 
-\includegraphics[width=600px]{example3_files/figure-latex/ecodata-gsi-1}
+\begin{figure}
+\includegraphics[width=600px]{example3_files/figure-latex/ecodata-gsi-1} \caption{Time series describing the the Gulf Stream Index for the Northeast Shelf. The X-axis shows the time in years and the Y-axis shows the Gulf Stream position anomaly}\label{fig:ecodata-gsi}
+\end{figure}
 
 \subsubsection{Create an image from a code chunk with no width
 specified}\label{create-an-image-from-a-code-chunk-with-no-width-specified}
 
-\includegraphics{example3_files/figure-latex/ecodata-blue-runner-1}
+\begin{figure}
+\centering
+\includegraphics{example3_files/figure-latex/ecodata-blue-runner-1.pdf}
+\caption{No width.}
+\end{figure}
 
 \end{document}
