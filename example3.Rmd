@@ -4,7 +4,7 @@ output:
   pdf_document:
     fig_caption: yes
     keep_tex: yes
-    latex_engine: pdflatex
+    latex_engine: lualatex
 
 #    latex_engine: lualatex
 #    latex_engine: pdflatex
@@ -23,6 +23,17 @@ output:
 This document is for people who prefer to use flavors of markdown for their document writing instead of Microsoft Word.
 When writing in markdown issues arise when converting to pdf. In particular alt text for images are not displayed or transferred resulting in pdfs failing to pass accessibility checks. 
 
+## Prerequisites
+
+Please make sure that you update the `tinytex` package. You will need to install a bundle that is different from the default bundle.
+
+```{r tiny, eval = FALSE, echo = TRUE}
+tinytex::install_tinytex(bundle = "TinyTex-2")
+```
+
+For this particular example you will need to install the [`ecodata`](https://github.com/NOAA-EDAB/ecodata) package. 
+
+
 ## Steps in process
 
 * Knit the Rmd file
@@ -35,15 +46,7 @@ When writing in markdown issues arise when converting to pdf. In particular alt 
  pdfversion=2.0,
  pdfstandard=ua-2,
  pdfstandard=a-4,
- testphase=
-   {
-    phase-III, %lists,footnotes,sectioning,
-               %toc,marginpar,bibliography,floats,
-               %graphics ...
-    math,  
-    table, %tabular, tabularx, longtable
-    title  %maketitle
-   }
+ testphase=latest
  }
 ```
 * Save and compile this `tex` file by clicking the "Compile PDF" button in RStudio
@@ -55,26 +58,24 @@ All images were created with a resolution of 96 dpi.
 
 Each figure has different number of horizontal and vertical pixels. 
 
-Mouse over the image to see its dimensions
-
-**Note: the figure caption will be the name of the image file path**
+**Note: the figure caption will be the name of the image file path for png included using `knitr`**
 
 ### Include a file
 
-```{r test6, echo=FALSE, out.width="600px",fig.cap="Time series is a dummy example"}
+```{r test6, echo=FALSE, out.width="600px",fig.alt="Time series is a dummy example"}
 knitr::include_graphics("figures/test6.png")
 ```
 
 ### Create an image from a code chunk
 
-```{r ecodata-gsi, echo=FALSE,out.width="600px",fig.cap="Time series describing the the Gulf Stream Index for the Northeast Shelf. The X-axis shows the time in years and the Y-axis shows the Gulf Stream position anomaly"}
+```{r ecodata-gsi, echo=FALSE,out.width="600px",fig.alt="Time series describing the the Gulf Stream Index for the Northeast Shelf. The X-axis shows the time in years and the Y-axis shows the Gulf Stream position anomaly"}
 ecodata::plot_gsi()
 ```
 
 
 ### Create an image from a code chunk with no width specified
 
-```{r ecodata-blue-runner, echo=FALSE,fig.cap="No width. "}
+```{r ecodata-blue-runner, echo=FALSE,fig.alt="No width. "}
 ecodata::plot_blue_runner()
 ```
 

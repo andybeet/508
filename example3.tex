@@ -2,6 +2,13 @@
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
 %
+\DocumentMetadata{
+ lang=en,
+ pdfversion=2.0,
+ pdfstandard=ua-2,
+ pdfstandard=a-4,
+ testphase=latest
+ }
 \documentclass[
 ]{article}
 \usepackage{amsmath,amssymb}
@@ -37,6 +44,46 @@
 \makeatother
 \usepackage{xcolor}
 \usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \usepackage{graphicx}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -92,6 +139,20 @@ markdown issues arise when converting to pdf. In particular alt text for
 images are not displayed or transferred resulting in pdfs failing to
 pass accessibility checks.
 
+\subsection{Prerequisites}\label{prerequisites}
+
+Please make sure that you update the \texttt{tinytex} package. You will
+need to install a bundle that is different from the default bundle.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tinytex}\SpecialCharTok{::}\FunctionTok{install\_tinytex}\NormalTok{(}\AttributeTok{bundle =} \StringTok{"TinyTex{-}2"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+For this particular example you will need to install the
+\href{https://github.com/NOAA-EDAB/ecodata}{\texttt{ecodata}} package.
+
 \subsection{Steps in process}\label{steps-in-process}
 
 \begin{itemize}
@@ -111,15 +172,7 @@ pass accessibility checks.
  pdfversion=2.0,
  pdfstandard=ua-2,
  pdfstandard=a-4,
- testphase=
-   {
-    phase-III, %lists,footnotes,sectioning,
-               %toc,marginpar,bibliography,floats,
-               %graphics ...
-    math,  
-    table, %tabular, tabularx, longtable
-    title  %maketitle
-   }
+ testphase=latest
  }
 \end{verbatim}
 
@@ -139,31 +192,21 @@ All images were created with a resolution of 96 dpi.
 
 Each figure has different number of horizontal and vertical pixels.
 
-Mouse over the image to see its dimensions
-
-\textbf{Note: the figure caption will be the name of the image file
-path}
+\textbf{Note: the figure caption will be the name of the image file path
+for png included using \texttt{knitr}}
 
 \subsubsection{Include a file}\label{include-a-file}
 
-\begin{figure}
-\includegraphics[width=600px]{figures/test6} \caption{Time series is a dummy example}\label{fig:test6}
-\end{figure}
+\includegraphics[width=600px]{figures/test6}
 
 \subsubsection{Create an image from a code
 chunk}\label{create-an-image-from-a-code-chunk}
 
-\begin{figure}
-\includegraphics[width=600px]{example3_files/figure-latex/ecodata-gsi-1} \caption{Time series describing the the Gulf Stream Index for the Northeast Shelf. The X-axis shows the time in years and the Y-axis shows the Gulf Stream position anomaly}\label{fig:ecodata-gsi}
-\end{figure}
+\includegraphics[width=600px]{example3_files/figure-latex/ecodata-gsi-1}
 
 \subsubsection{Create an image from a code chunk with no width
 specified}\label{create-an-image-from-a-code-chunk-with-no-width-specified}
 
-\begin{figure}
-\centering
-\includegraphics{example3_files/figure-latex/ecodata-blue-runner-1.pdf}
-\caption{No width.}
-\end{figure}
+\includegraphics{example3_files/figure-latex/ecodata-blue-runner-1}
 
 \end{document}
