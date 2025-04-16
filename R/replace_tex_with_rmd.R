@@ -8,8 +8,8 @@
 #' There are still some characters that if present in the fig.cap/fig.alt text
 #' cause problems in the rendering of the tex file. The full list is not known
 #' 
-#' @params filename character name of the rmd file
-#' @params text character name of the text to replace in the tex file
+#' @params filename. character name of the rmd file
+#' @params text. character name of the text label to replace in the tex file
 #' 
 
 replace_tex_with_rmd <- function(filename="example3",text="fig.cap") {
@@ -20,16 +20,17 @@ addText <- "\\DocumentMetadata{
  pdfversion=2.0,
  pdfstandard=ua-2,
  pdfstandard=a-4,
- testphase=
-   {
-    phase-III, %lists,footnotes,sectioning,
-               %toc,marginpar,bibliography,floats,
-               %graphics ...
-    math,  
-    table, %tabular, tabularx, longtable
-    title  %maketitle
-   }
- }"
+ testphase= latest
+}"
+
+    
+   # phase-III, %lists,footnotes,sectioning,
+   #             %toc,marginpar,bibliography,floats,
+   #             %graphics ...
+   #  math,
+   #  table, %tabular, tabularx, longtable
+   #  title  %maketitle
+   
 
 # read in rmd file
 con <- file(here::here(paste0(filename,".Rmd")), open = "r")
@@ -55,15 +56,21 @@ if (text == "fig.cap"){
 } else {
   error("text must be fig.cap or fig.alt")
 }
-# substiture \" or ' for empty string
+
+# clean up stuff. substitute \" or ' for empty string
 figAlts <- gsub("\"","",figAlts)
 figAlts <- gsub("'","",figAlts)
-# in figAlts replace = sign with the word is
-figAlts <- gsub("="," is ",figAlts)
-figAltNames <- gsub("\"}","",figAlts)
+figAlts <- gsub("\"}","",figAlts)
+# Escape special symbols
+# in figAlts escape = sign
+figAlts <- gsub("="," \\= ",figAlts)
+# in figAlts escape parentheses
+figAlts <- gsub("\\(","\\\\(",figAlts)
+figAlts <- gsub("\\)","\\\\)",figAlts)
 
+figAltNames <- figAlts
 # replace all figAltNames with NA
-#figAltNames[!is.na(figAltNames)] <- NA
+figAltNames[!is.na(figAltNames)] <- "hello"
 
 ##### replace tex with rmd
 # open tex file
@@ -84,20 +91,33 @@ for(i in 1:length(chunkNames)){
   line <- newTex[rowid]
   if (length(line) == 0) {next}
 
+  # Each line is of the form:
+  # {\centering \includegraphics[width=0.55\linewidth]{SOE-MAFMC-2025_files/figure-latex/cocobloom-1} 
+  # This needs to be changed to something like:
+  # {\centering \includegraphics[width=0.55\linewidth,alt=some alt text]{SOE-MAFMC-2025_files/figure-latex/cocobloom-1} 
+  # To do this we need to capture the contnt in square brackets, change it and replace it
+  
   # find text within square brackets in line includegraphics in the tex file
   sqbrackets <- stringr::str_extract(line,"\\[([\\.A-Za-z0-9=\\\\]+)\\]")
   if (!is.na(sqbrackets)) {
     # add to alt text to this
-    newSqbrackets <- sub("]",paste0(",alt=",figAltNames[i],"]"),sqbrackets)
+    newSqbrackets <- paste0(sub("]","",sqbrackets),",alt=\\{",figAltNames[i],"\\}]")
+    
+    
     # some of the existing commands in tex file have \\ entries
     sqbrackets <- gsub("\\\\","\\\\\\\\",sqbrackets)
     newSqbrackets <- gsub("\\\\","\\\\\\\\",newSqbrackets)
     newTex[rowid] <- stringr::str_replace(newTex[rowid],paste0("\\",sqbrackets),newSqbrackets)
+    
   } else { # no square brackets
+
+    print(i)
     sqbrackets <- stringr::str_extract(line,"\\includegraphics")
-    newSqbrackets <- sub(sqbrackets,paste0(sqbrackets,"[alt=",figAltNames[i],"]"),line)
-    #newTex[rowid] <- newSqbrackets
+    newName <- gsub("\\\\","\\\\\\\\",figAltNames[i])
+    newSqbrackets <- sub(sqbrackets,paste0(sqbrackets,"[alt=\\{",newName,"\\}]"),line)
+
     newTex[rowid] <- newSqbrackets
+    
   }
 
 
