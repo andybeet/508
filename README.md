@@ -6,32 +6,29 @@
 # Who is this document for?
 
 This document is for people who prefer to use flavors of markdown for their document writing instead of Microsoft Word.
-When writing in markdown issues arise when converting to pdf. In particular alt text for images are not displayed or transfered resulting in pdfs failing to pass accessibility checks. This document attempts to resolve this issue.
+When writing in markdown issues arise when converting to pdf. In particular alt text for images are not displayed or transferred resulting in pdfs failing to pass accessibility checks. This document attempts to resolve this issue.
 
-Steps are provided to help create 508 compliant pdfs
+Steps are provided to help create 508 compliant pdfs in two different ways:
 
-* Write document in markdown
-* Save as R markdown and add yaml header
-    + output to docx via a reference doc (template)
-* Knit the Rmd file
-* Open word doc and convert to pdf
-* Open pdf and perform a `full check` (found in the accessibility tab)
+* Using word as a template doc
+* Editing intermediate tex files
+
+* To review outcomes perform a `full check` of your pdf (found in the accessibility tab)
 
 # Contents
 
 An example text file in markdown is provided (`example.md`). 
 
-An equivalent Rmarkdown file is provided (`example.rmd`). The difference is only the includion of a YAML header.
+An equivalent Rmarkdown file is provided (`example.rmd`). 
+  - The difference is only the inclusion of a YAML header.
 
-A second Rmarkdown file is provided (`example2.rmd`). Where a code chunk is used instead of markdown to include images plus a YAML header.
-
-The resulting pdf (`example.pdf`) is provided as the final product
-
-A template word file (`reference.docx`) is provided to demonstrate examples of formatting.
-
-# 508 alt.txt without word
+A second Rmarkdown file is provided (`example2.rmd`). 
+  - A code chunk is used instead of markdown to include images plus a YAML header.
+  - The resulting pdf (`example.pdf`) is provided as the final product
+  - A template word file (`reference.docx`) is provided to demonstrate examples of formatting.
 
 Example `example3.rmd` demonstrates how to include alt text for images without using word as a template. This is done by keeping the intermediate tex file and modifying it (very slightly) before converting to a pdf. The resulting pdf passes accessibility checks albeit with not very descriptive alt text. This can be improved by including alt text in the rmd code chunk and running a script (`R/replace_tex_with_rmd()`) to modify the tex file further.
+  - An intermediate `example3.tex` file is provided to demonstrate the changes made to the tex file.
 
 
 # Resources for 508 help
